@@ -1,9 +1,8 @@
-#! /bin/python
 import xml.etree.ElementTree as ET 
 from sys import argv
 
 def main():
-'''Usage: ./PreProcess.py input.xml output.txt '''
+    '''Usage: ./PreProcess.py input.xml output.txt '''
     source=argv[1]
     destination=argv[2]
     parser = ET.XMLParser(encoding = 'utf-8')

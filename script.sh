@@ -1,7 +1,8 @@
 #!/bin/bash
 
-task=$(pwd)/PreProcess.py
+py="python3"
+py_task="PreProcess.py"
 
 for i in */*/*.xml ; do
-  "$task" $i ${i%.xml}.txt
+  "$py" "$py_task" $i ${i%.xml}.pre.txt
 done
