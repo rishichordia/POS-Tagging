@@ -3,6 +3,8 @@
 
 py="python3"
 
+mkdir -p res
+
 for i in */*/*.xml ; do
 	src="$i"
 	target="${src%.xml}.pre.txt"
@@ -15,5 +17,6 @@ for i in */*/*.xml ; do
 done
 
 unset target
+unset src
 
-[[ -f res/stats.pkl ]] || "$py" Stat.py || echo "Stat: $src error"
+[[ -f res/stats.pkl ]] || "$py" Stat.py || echo "Stat: error"
