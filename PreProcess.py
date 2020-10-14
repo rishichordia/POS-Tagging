@@ -12,7 +12,7 @@ def main():
     output = open(destination,"w")
     for element in root.iter('*') :
         if element.tag=='w' or element.tag=='c':
-                text=element.text.strip()
+                text=element.text.strip().replace(' ','~')
                 text+="_"
                 text+=element.attrib['c5'].strip()
                 text+=" "
