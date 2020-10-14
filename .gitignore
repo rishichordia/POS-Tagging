@@ -1,5 +1,5 @@
 *.pre.txt
 *.dict.pkl
 res/stats.pkl
-log
 res/top10.txt
+log
