@@ -1,4 +1,5 @@
 import pickle
+import glob
 from os import path
 from sys import argv
 
@@ -11,33 +12,35 @@ def load_obj(name ):
 		return pickle.load(f)
 
 def main():
-	'''Usage: ./Stat.py input.dict.pkl'''
-	if path.exists("res/stats.pkl"):
-		stats=load_obj("res/stats.pkl")
-	else:
-		stats=({},{},{}) #Words tuple and tags tuple
+	'''Usage: python Stat.py '''
+	stats=({},{},{}) #Words tuple and tags tuple
+
+	input_list=glob.glob("Train-corpus/*/*.dict.pkl")
+
 	final_dict=stats[0]
 	word_count=stats[1]
 	tag_count=stats[2]
-	count_dict=load_obj(argv[1])
-	for word in count_dict:
-		for tag in count_dict[word]:
-			if tag in tag_count:
-				tag_count[tag]+=count_dict[word][tag]
-			else:
-				tag_count[tag]=count_dict[word][tag]
-		if word in final_dict:
+
+	for item in input_list:
+		count_dict=load_obj(item)
+		for word in count_dict:
 			for tag in count_dict[word]:
-				if tag in final_dict[word]:
-					final_dict[word][tag]+=count_dict[word][tag]
+				if tag in tag_count:
+					tag_count[tag]+=count_dict[word][tag]
 				else:
-					final_dict[word][tag]=count_dict[word][tag]
-				word_count[word]+=count_dict[word][tag]
-		else:
-			final_dict[word]=count_dict[word]
-			word_count[word]=0
-			for tag in count_dict[word]:
-				word_count[word]+=count_dict[word][tag]
+					tag_count[tag]=count_dict[word][tag]
+			if word in final_dict:
+				for tag in count_dict[word]:
+					if tag in final_dict[word]:
+						final_dict[word][tag]+=count_dict[word][tag]
+					else:
+						final_dict[word][tag]=count_dict[word][tag]
+					word_count[word]+=count_dict[word][tag]
+			else:
+				final_dict[word]=count_dict[word]
+				word_count[word]=0
+				for tag in count_dict[word]:
+					word_count[word]+=count_dict[word][tag]
 
 	save_obj(stats,"res/stats.pkl")
 

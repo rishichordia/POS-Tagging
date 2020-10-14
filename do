@@ -16,9 +16,4 @@ done
 
 unset target
 
-if [[ !	-f res/stats.pkl ]] ; then
-	for i in Train-corpus/*/*.dict.pkl ; do
-		src="$i"
-		"$py" Stat.py "$src" || echo "Stat: $src error"
-		done
-fi
+[[ -f res/stats.pkl ]] || "$py" Stat.py || echo "Stat: $src error"
