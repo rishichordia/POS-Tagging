@@ -39,11 +39,7 @@ def main():
 			for tag in count_dict[word]:
 				word_count[word]+=count_dict[word][tag]
 
-	save_obj((final_dict,word_count,tag_count),"res/stats.pkl")
-	stats=load_obj("res/stats.pkl")
-	print(stats[0])
-	print(stats[1])
-	print(stats[2])
+	save_obj(stats,"res/stats.pkl")
 
 if __name__ == '__main__':
 	main()

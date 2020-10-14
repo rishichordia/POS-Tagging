@@ -1,3 +1,4 @@
 *.pre.txt
 *.dict.pkl
+res/stats.pkl
 log
