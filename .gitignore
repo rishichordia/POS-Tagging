@@ -1,5 +1,6 @@
 *.pre.txt
 *.dict.pkl
+*.png
 res/stats.pkl
 res/top10.txt
 log

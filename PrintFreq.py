@@ -17,13 +17,14 @@ def main():
 	plt.xlabel("Word")
 	plt.ylabel("Frequency of word")
 	plt.title("Top 10 Most Frequent Words:")
+	plt.savefig('res/fig1.png', dpi=300)
 
 	fig2 = plt.figure(figsize = (15, 10))
 	plt.bar(Tags.keys(),Tags.values(),color='maroon',width=0.5)
 	plt.xlabel("Tags")
 	plt.ylabel("Frequency of tags")
 	plt.title("Top 10 Most Frequent Tags")
-	plt.show()
+	plt.savefig('res/fig2.png', dpi=300)
 
 
 	print("Top 10 Most Frequent Words:")
