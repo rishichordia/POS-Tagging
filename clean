@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm -f $(find -name '*.pre.txt')
-rm -f $(find -name '*.dict.pkl')
-rm -f res/stats.pkl
+find -name '*.pre.txt' -delete
+find -name '*.dict.pkl' -delete
+rm -f res/*
