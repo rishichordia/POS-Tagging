@@ -25,10 +25,22 @@ def main():
 		count_dict=load_obj(item)
 		for word in count_dict:
 			for tag in count_dict[word]:
-				if tag in tag_count:
-					tag_count[tag]+=count_dict[word][tag]
+				if "-" in tag:
+					two=tag.split("-")		
+					if two[0] in tag_count:
+						tag_count[two[0]]+=count_dict[word][tag]
+					else:
+						tag_count[two[0]]=count_dict[word][tag]
+					if two[1] in tag_count:
+						tag_count[two[1]]+=count_dict[word][tag]
+					else:
+						tag_count[two[1]]=count_dict[word][tag]
 				else:
-					tag_count[tag]=count_dict[word][tag]
+					if tag in tag_count:
+						tag_count[tag]+=count_dict[word][tag]
+					else:
+						tag_count[tag]=count_dict[word][tag]
+
 			if word in final_dict:
 				for tag in count_dict[word]:
 					if tag in final_dict[word]:

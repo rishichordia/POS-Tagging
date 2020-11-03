@@ -9,8 +9,6 @@ def main():
  		element=comb.split("_")
  		word=element[0].lower()
  		tag=element[1]
- 		if tag in ["PUL","PUN","PUQ","PUR"]:
- 			continue
  		if word in count_dict:
  			if tag in count_dict[word]:
  				count_dict[word][tag]+=1
