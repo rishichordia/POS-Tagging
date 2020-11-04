@@ -12,10 +12,10 @@ def main():
 		words = line.split()
 		tags = [word.split('_')[1] for word in words]
 		for i in range(len(tags)-1): #TODO: Multiple tags?
-			pair = (tags[i],tags[i+1])
-			if pair not in pair_count_dict:
-				pair_count_dict[pair] = 0
-			pair_count_dict[pair] += 1
+			for pair in ((x,y) for x in tags[i].split('-') for y in tags[i+1].split('-')):
+				if pair not in pair_count_dict:
+					pair_count_dict[pair] = 0
+				pair_count_dict[pair] += 1
 
 	with open('res/pair.pkl', 'wb') as f:
 		pickle.dump(pair_count_dict, f, pickle.HIGHEST_PROTOCOL)

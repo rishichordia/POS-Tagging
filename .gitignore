@@ -3,3 +3,4 @@
 *.png
 res
 log
+__pycache__
