@@ -44,16 +44,28 @@ def viterbi(sentence):
 				temp2[t] = max (tag_set,key = lambda pt:(viterbi_dp[i-1][pt] + tran_prob_ln(pt,t) + emis_prob_ln(t,w)))
 				temp[t] = viterbi_dp[i-1][temp2[t]] + tran_prob_ln(temp2[t],t) + emis_prob_ln(t,w)
 
-		breakpoint()
 		for t in wt_stats[w]:
 			temp2[t] = max (tag_set,key = lambda pt:(viterbi_dp[i-1][pt] + tran_prob_ln(pt,t) + emis_prob_ln(t,w)))
 			temp[t] = viterbi_dp[i-1][temp2[t]] + tran_prob_ln(temp2[t],t) + emis_prob_ln(t,w)
 		viterbi_dp.append(temp)
 		viterbi_bp.append(temp2)
+	
+
+	pred_tag_list = []
+	temp_tag =  max (tag_set, key = lambda t: viterbi_dp[-1][t])
+#TODO: Include fullstop in our analysis
+	pred_tag_list.append(temp_tag)
+
+	rev = viterbi_bp[::-1]
+	for i in rev:
+		temp_tag = i[temp_tag]
+		pred_tag_list.insert(0,temp_tag)
 
 
-	print(viterbi_dp)
-	print(viterbi_bp)
+
+#	print(viterbi_dp)
+#	print(viterbi_bp)
+	print(pred_tag_list)
 
 
 	
