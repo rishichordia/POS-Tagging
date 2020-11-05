@@ -24,35 +24,16 @@ def main():
 	for item in input_list:
 		count_dict=load_obj(item)
 		for word in count_dict:
-			for tag in count_dict[word]:
-				if "-" in tag:
-					two=tag.split("-")		
-					if two[0] in tag_count:
-						tag_count[two[0]]+=count_dict[word][tag]
-					else:
-						tag_count[two[0]]=count_dict[word][tag]
-					if two[1] in tag_count:
-						tag_count[two[1]]+=count_dict[word][tag]
-					else:
-						tag_count[two[1]]=count_dict[word][tag]
-				else:
-					if tag in tag_count:
-						tag_count[tag]+=count_dict[word][tag]
-					else:
-						tag_count[tag]=count_dict[word][tag]
+			if word not in final_dict: final_dict[word] = {}
+			if word not in word_count: word_count[word] = 0
 
-			if word in final_dict:
-				for tag in count_dict[word]:
-					if tag in final_dict[word]:
-						final_dict[word][tag]+=count_dict[word][tag]
-					else:
-						final_dict[word][tag]=count_dict[word][tag]
-					word_count[word]+=count_dict[word][tag]
-			else:
-				final_dict[word]=count_dict[word]
-				word_count[word]=0
-				for tag in count_dict[word]:
-					word_count[word]+=count_dict[word][tag]
+			for tag in count_dict[word]:
+				if tag not in final_dict[word]: final_dict[word][tag] = 0
+				if tag not in tag_count: tag_count[tag] = 0
+
+				final_dict[word][tag] += count_dict[word][tag]
+				word_count[word] += count_dict[word][tag]
+				tag_count[tag] += count_dict[word][tag]
 
 	save_obj(stats,"res/stats.pkl")
 
