@@ -1,4 +1,5 @@
 import pickle
+from math import log
 from Stat import load_obj,save_obj
 
 pair_stats = load_obj("res/pair.pkl")
@@ -9,35 +10,51 @@ wt_stats = stat[0]
 
 tag_set = set(tag_stats)	
 
-def tran_prob(prev_tag,next_tag):
+def tran_prob_ln(prev_tag,next_tag):
 	pair = (prev_tag,next_tag)
 	if pair not in pair_stats: return 0
-	return pair_stats[(prev_tag,next_tag)]/tag_stats[prev_tag]
+	return log(pair_stats[(prev_tag,next_tag)]/tag_stats[prev_tag])
 
-def emis_prob(tag,word):
-	return wt_stats[word.lower()][tag]/tag_stats[tag] #TODO: Smooth this shit, use logs
+def emis_prob_ln(tag,word):
+	return log(wt_stats[word.lower()][tag]/tag_stats[tag]) #TODO: Smooth this shit, use logs
 
-def tag_prob(tag):
+def tag_prob_ln(tag):
 	tag_total = sum ((tag_stats[j] for j in tag_stats))
-	return tag_stats[tag]/tag_total
+	return log(tag_stats[tag]/tag_total)
 
 def viterbi(sentence):
 	word_list = [w.lower() for w in sentence.split()]
 #	word_list.insert(0,'*')
 	viterbi_dp = []  #Index == String length, Element = dictionary?
-	for t in wt_stats[word_list[0]]:
-		temp = dict.fromkeys(tag_set,0)
-		temp[t] = tag_prob(t) * emis_prob(t,word_list[0])
-		viterbi_dp.append(temp)
+	viterbi_bp = []  
 
-	for i,w in enumerate(word_list,1):
-		temp = dict.fromkeys(tag_set,0)
+	temp = dict.fromkeys(tag_set,-10000000)
+	for t in wt_stats[word_list[0]]:
+		temp[t] = tag_prob_ln(t) + emis_prob_ln(t,word_list[0])
+	viterbi_dp.append(temp)
+
+	for i,w in enumerate(word_list):
+		if i==0: continue
+
+		temp = dict.fromkeys(tag_set,-10000000)
+		temp2 = {}
+		
+		if w not in wt_stats:
+			for t in wt_stats[w]:
+				temp2[t] = max (tag_set,key = lambda pt:(viterbi_dp[i-1][pt] + tran_prob_ln(pt,t) + emis_prob_ln(t,w)))
+				temp[t] = viterbi_dp[i-1][temp2[t]] + tran_prob_ln(temp2[t],t) + emis_prob_ln(t,w)
+
+		breakpoint()
 		for t in wt_stats[w]:
-			temp[t] = max ((viterbi_dp[i-1][pt] * tran_prob(pt,t) * emis_prob(t,w) for pt in tag_set))
+			temp2[t] = max (tag_set,key = lambda pt:(viterbi_dp[i-1][pt] + tran_prob_ln(pt,t) + emis_prob_ln(t,w)))
+			temp[t] = viterbi_dp[i-1][temp2[t]] + tran_prob_ln(temp2[t],t) + emis_prob_ln(t,w)
 		viterbi_dp.append(temp)
+		viterbi_bp.append(temp2)
 
 
 	print(viterbi_dp)
+	print(viterbi_bp)
+
 
 	
 
@@ -45,7 +62,7 @@ def viterbi(sentence):
 	
 
 def main():
-	viterbi ("Enter the dragon")
+	viterbi (input())
 
 if __name__ == "__main__":
 	main()
