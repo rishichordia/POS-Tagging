@@ -21,6 +21,7 @@ def main():
 	word_count=stats[1]
 	tag_count=stats[2]
 
+
 	for item in input_list:
 		count_dict=load_obj(item)
 		for word in count_dict:
@@ -34,6 +35,19 @@ def main():
 				final_dict[word][tag] += count_dict[word][tag]
 				word_count[word] += count_dict[word][tag]
 				tag_count[tag] += count_dict[word][tag]
+
+	lfword_set = { w for w in word_count if word_count[w] == 1 }
+	final_dict["UNK"] = {}  #Note clever usage of caps
+	word_count["UNK"] = 0
+	for lfword in lfword_set:
+		assert len(final_dict[lfword]) == 1
+		tag = list(final_dict[lfword])[0] 
+		if tag not in final_dict["UNK"]: final_dict["UNK"][tag] = 0
+		final_dict["UNK"][tag] += 1
+		word_count["UNK"] += 1
+		del final_dict[lfword]
+		del word_count[lfword]
+
 
 	save_obj(stats,"res/stats.pkl")
 
