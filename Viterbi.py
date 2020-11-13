@@ -14,6 +14,20 @@ class HMM:
 		self.NEG_INF = -10000000
 		self.smoothness = 1  #Can modify this
 
+		lfword_set = { w for w in self.word_stats if self.word_stats[w] == 1 }
+		self.wt_stats["UNK"] = {}  #Note clever usage of caps
+		self.word_stats["UNK"] = 0
+
+		for lfword in lfword_set:
+			assert len(self.wt_stats[lfword]) == 1
+			tag = list(self.wt_stats[lfword])[0] 
+			if tag not in self.wt_stats["UNK"]: self.wt_stats["UNK"][tag] = 0
+			self.wt_stats["UNK"][tag] += 1
+			self.word_stats["UNK"] += 1
+			del self.wt_stats[lfword]
+			del self.word_stats[lfword]
+
+
 	def tran_prob_ln(self,prev_tag,next_tag):
 		pair = (prev_tag,next_tag)
 		if pair not in self.pair_stats: self.pair_stats[pair] = 0  
@@ -65,7 +79,9 @@ class HMM:
 	#	print(pred_tag_list)
  
  
-#def main():
-#	viterbi (input())
-#if __name__ == "__main__":
-#	main()
+def main():
+	Demo = HMM()
+	print(Demo.viterbi(input()))
+	
+if __name__ == "__main__":
+	main()
