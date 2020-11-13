@@ -23,5 +23,5 @@ unset target
 unset src
 
 [[ -f res/stats.pkl ]] || "$py" Stat.py || echo "Stat: error"
-[[ -f res/stats.pkl ]] && "$py" PrintFreq.py > res/top10.txt 
+#[[ -f res/stats.pkl ]] && "$py" PrintFreq.py > res/top10.txt 
 [[ -f res/pair.pkl ]] || "$py" Pair.py || echo "Pair: error"
