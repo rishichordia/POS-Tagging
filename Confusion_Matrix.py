@@ -13,7 +13,7 @@ def main():
 	#input_list=glob.glob("Test-corpus/*/*.pre.txt")
 	confusion_matrix=stat[3]
 	if len(confusion_matrix)==0:
-     confusion_matrix=[ [0] * N for _ in range(N)]
+		confusion_matrix=[[0] * N for _ in range(N)]
 	pos=list(stat[2].keys())
 
 	PredictTag=HMM()
@@ -46,6 +46,6 @@ def main():
 			actual_tag_set=[]
 			predi_tag_set=[]
 	stat[3]=confusion_matrix
-	save_obj(stats,"res/stats.pkl")
+	save_obj(stat,"res/stats.pkl")
 if __name__ == '__main__':
 	main()

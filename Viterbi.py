@@ -2,7 +2,7 @@ import pickle
 from math import log
 from Stat import load_obj,save_obj
 
-class HMM:
+class Predictor:
 
 	def __init__(self):
 		self.pair_stats = load_obj("res/pair.pkl")
@@ -80,7 +80,7 @@ class HMM:
  
  
 def main():
-	Demo = HMM()
+	Demo = Predictor()
 	print(Demo.viterbi(input()))
 	
 if __name__ == "__main__":
