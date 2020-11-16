@@ -13,7 +13,7 @@ def load_obj(name ):
 
 def main():
 	'''Usage: python Stat.py '''
-	stats=({},{},{},[]) #Words tuple and tags tuple
+	stats=({},{},{})
 
 	input_list=glob.glob("Train-corpus/*/*.dict.pkl")
 

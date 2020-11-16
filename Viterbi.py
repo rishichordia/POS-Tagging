@@ -2,7 +2,7 @@ import pickle
 from math import log
 from Stat import load_obj,save_obj
 
-class Predictor:
+class HMM:
 
 	def __init__(self):
 		self.pair_stats = load_obj("res/pair.pkl")
@@ -44,7 +44,7 @@ class Predictor:
 		tag_total = sum ((self.tag_stats[j] for j in self.tag_stats))
 		return log(self.tag_stats[tag]/tag_total)
 
-	def viterbi(self,sentence):
+	def predict(self,sentence):
 		word_list = [w.lower() for w in sentence.split()]
 		viterbi_dp = []  #Index == String length, Element = dictionary?
 		viterbi_bp = []  
@@ -80,8 +80,8 @@ class Predictor:
  
  
 def main():
-	Demo = Predictor()
-	print(Demo.viterbi(input()))
+	Demo = HMM()
+	print(Demo.predict(input()))
 	
 if __name__ == "__main__":
 	main()
