@@ -1,5 +1,5 @@
 #!/bin/bash
-
-find -name '*.pre.txt' -delete
-find -name '*.dict.pkl' -delete
+find Test-corpus Train-corpus -type f ! -name '*.xml'
+read -p "All of these will be deleted. ^C to cancel"
+find Test-corpus Train-corpus -type f ! -name '*.xml' -delete
 rm -f res/*
