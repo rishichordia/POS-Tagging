@@ -9,7 +9,7 @@ stat = load_obj("res/stats.pkl")
 N=len(stat[2])
 
 def main():
-	'''Usage: python3 Confusion_Matrix.py input.txt'''
+	'''Usage: python3 Performance.py '''
 	input_list=glob.glob("res/*.conf.pkl")
 	
 	for ifile in input_list:

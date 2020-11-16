@@ -19,7 +19,7 @@ def main():
 				text+=element.attrib['c5'].strip()
 				text+=" "
 				output.write(text)
-
+	output.close()
 
 if __name__ == '__main__':
 	main()

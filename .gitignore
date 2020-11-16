@@ -1,6 +1,7 @@
-*.pre.txt
 *.pkl
 *.png
-res
 log
 __pycache__
+res
+Test-corpus
+Train-corpus
