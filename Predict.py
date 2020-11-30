@@ -2,7 +2,7 @@ import pickle
 import glob
 from sys import argv
 from os import path
-from Viterbi import HMM
+from Bigram import Bigram
 from Naive import Naive
 from Stat import load_obj,save_obj
 
@@ -16,7 +16,7 @@ def main():
 		print("Need 4 args")
 		exit()
 
-	if argv[-1] == "hmm": PredictTag = HMM()
+	if argv[-1] == "hmm": PredictTag = Bigram()
 	if argv[-1] == "naive": PredictTag = Naive()
 
 	ifile = argv[1]

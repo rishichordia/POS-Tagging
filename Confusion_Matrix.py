@@ -2,8 +2,6 @@ import pickle
 import glob
 from sys import argv
 from os import path
-from Viterbi import HMM
-from Naive import Naive
 from Stat import load_obj,save_obj
 
 stat = load_obj("res/stats.pkl")

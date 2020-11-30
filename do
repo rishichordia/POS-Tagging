@@ -28,6 +28,7 @@ echo  "Generating statistics..."
 [[ -f res/stats.pkl ]] || "$py" Stat.py || echo "Stat: error"
 #[[ -f res/stats.pkl ]] && "$py" PrintFreq.py > res/top10.txt 
 [[ -f res/pair.pkl ]] || "$py" Pair.py || echo "Pair: error"
+[[ -f res/triple.pkl ]] || "$py" Triple.py || echo "Triple: error"
 
 #echo 'Run `python Confusion.py naive` for naive confusion matrix. Run `python Confusion.py hmm` for hmm confusion matrix'
 
